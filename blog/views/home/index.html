@@ -1,0 +1,93 @@
+<% include header.html %>
+
+	<!-- 主体 开始 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 col-md-12 left">
+				<ul class="media-list">
+				
+				</ul>
+				<!-- 分页 -->
+				<nav class="text-center">
+				  	<ul class="pagination">
+					    <li class="prev"><a href="javascript:;">&laquo;</a></li>
+					    <li class="pg active"><a href="javascript:;">1</a></li>
+					    <li class="pg"><a href="javascript:;">2</a></li>
+					    <li class="pg"><a href="javascript:;">3</a></li>
+					    <li class="pg"><a href="javascript:;">4</a></li>
+					     <li class="pg"><a href="javascript:;">5</a></li>
+					    <li class="next"><a href="javascript:;">&raquo;</a></li>
+				  	</ul>
+				</nav>
+			</div>
+		<script type="text/javascript">
+			// ajax请求
+			var page = 1;
+			pagenum = 5;
+			ajax(page);
+			function ajax(page){
+				$.ajax({
+					url:'/ajax',
+					type:'get',
+					data:{page:page},
+					dataType:'json',
+					success:function(data){
+						// console.info(data);
+						var str = "";
+						data.article.forEach(function(item){
+							
+							str += '<li class="media">';
+							str += '<a href="/book?id='+item._id+'"class="media-left">';
+							str += '<img src="/'+item.cover+'" alt="">';
+							str += '</a>';
+							str += '<div class="media-body">';
+							str += '<h3><a href="/book?id='+item._id+'">';
+							str += item.title+'</a></h3>';
+							str += '<ol class="list-unstyled list-inline">';
+							str += '<li><span class="glyphicon glyphicon-user"></span> admin</li>';
+							str += '<li><span class="glyphicon glyphicon-time"></span>  '+item.time+'</li>';
+							str += '<li><span class="glyphicon glyphicon-eye-open"></span> '+item.count+'浏览</li>';
+							str += '<li><span class="glyphicon glyphicon-pencil"></span><a href=""> 评论一下</a></li>';
+							str += '</ol>';
+							str += '<p>'+item.summary+'</p>';
+							str += '</div></li>';
+						});
+
+						$('.media-list').html(str);
+					}
+				});
+			}
+			//点击下一页
+			$('.next').click(function(){
+				page++;
+				if(page == pagenum+1){
+					alert('已经是最后一页了哦');
+					page = pagenum;
+				};
+				change();
+				ajax(page);
+			});
+			// 点击上一页
+			$('.prev').click(function(){
+				page--;
+				if(page == 0){
+					alert('前面没有了');
+					page=1;
+				};
+				change();
+				ajax(page);
+			});
+			// 点击具体页码
+			$('.pg').click(function(){
+				var index = $(this).index();
+				page = index;
+				change();
+				ajax(page);
+			});
+			// 变化的li标签
+			function change(){
+				$('.pg').eq(page-1).addClass('active').siblings().removeClass('active');
+			}
+		</script>
+	<!-- 主体 结束 -->
+<% include footer.html %>

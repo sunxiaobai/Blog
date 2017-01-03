@@ -1,0 +1,74 @@
+<% include header.html %>
+	<!-- 主体 开始 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9 col-md-12 left">
+				<!-- 面包屑导航 -->
+				<ol class="breadcrumb">
+					 <li><a href="#">首页</a></li>
+					 <li><a href="#">CSS</a></li>
+					 <li class="active">响应式Web设计</li>
+				</ol>
+				<!-- 页头 -->
+				<div class="page-header">
+				  	<h1><%= data.title %></h1>
+				  	<p>Killer 发表于(<%= data.time %>) 本文标签： 浏览量：<%= data.count %>次&nbsp;   
+					  	<a href="">
+					  	<span class="glyphicon glyphicon-hand-up"></span>
+					  		喜欢
+					  	</a> 
+					  	<a href="#">
+						  	<span class="glyphicon glyphicon-heart"></span>
+						  	收藏
+					  	</a>
+				  	</p>
+				</div>
+				<!-- 文章内容 -->
+				<!-- 引入Markdown.min.js文件 -->
+				<script src="/js/markdown.min.js"></script>
+				<div id="article"><%= data.content %></div>
+				<script type="text/javascript">
+					$('#article').html(markdown.toHTML($('#article').html()));
+				</script>
+				<!-- 相关文章 -->
+				<div class="about">
+					<h4>相关文章</h4>
+					<div class="row">
+						<div class="col-sm-6">
+							<span class="glyphicon glyphicon-link"></span>
+							<a href="">响应式Web设计</a>
+						</div>
+						<div class="col-sm-6">
+							<span class="glyphicon glyphicon-link"></span>
+							<a href="">css3媒体查询实现网站响应式布局</a>
+						</div>
+						<div class="col-sm-6">
+							<span class="glyphicon glyphicon-link"></span>
+							<a href="">推荐：7个有用的HTML5学习资源</a>
+						</div>
+						<div class="col-sm-6">
+							<span class="glyphicon glyphicon-link"></span>
+							<a href="">前端开发者思考：假如5年后你是开发总监</a>
+						</div>
+						<div class="col-sm-6">
+							<span class="glyphicon glyphicon-link"></span>
+							<a href=""> 专业设计师必读！如何为网站和应用创建设计</a>
+						</div>
+					</div>
+				</div>
+				<!-- 分页 -->
+				<!-- <nav class="text-center">
+				  	<ul class="pagination">
+					    <li><a href="#">&laquo;</a></li>
+					    <li class="active"><a href="#">1</a></li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+					    <li><a href="#">4</a></li>
+					    <li><a href="#">5</a></li>
+					    <li><a href="#">&raquo;</a></li>
+				  	</ul>
+				</nav> -->
+			</div>
+		
+	<!-- 主体 结束 -->
+<% include footer.html %>
